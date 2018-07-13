@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日志监控</title>
+    <script type="text/javascript" src="https://gj1827-1257055243.cos.ap-shanghai.myqcloud.com/crossroad/javascript/socket.io.js"></script>
+    <script>
+        var socket = io.connect();
+        function appendNode(log){
+            var node = document.createElement("div");
+            node.innerHTML = '<span>'+log.date+'</span><span>'+log.src+'</span><span>'+log.count+'</span>';
+            document.getElementById('log-container').appendChild(node);
+        }
+
+        socket.on('connect',function(){
+            console.log('连接成功');
+        });
+
+        socket.on('msg',function(data){
+            appendNode(data.log);
+        });
+
+    </script>
+    <style>
+        #log-container{
+        }
+        #log-container span{
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="log-container">
+</div>
+</body>
+</html>
